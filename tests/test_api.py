@@ -13,11 +13,11 @@ class TestApi(unittest.TestCase):
         self.assertEqual(data.status_code, 404)
 
     def test_search(self):
-        data = get('http://localhost:5000/search/2015-07-19/37.781157+-122.398720+1mi').json()
+        data = get('http://localhost:5000/search/2015-07-19/37.781157,-122.398720,10mi').json()
         self.assertGreater(len(data.get('tweets')), 0)
     
     def test_collect(self):
-        data = get('http://localhost:5000/collect/37.781157+-122.398720+1mi').json()
+        data = get('http://localhost:5000/collect/37.781157,-122.398720,10mi').json()
         self.assertGreater(len(data.get('tweets')), 0)
     
     def test_schedule(self):
