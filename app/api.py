@@ -1,5 +1,5 @@
 from flask import Flask, request
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, abort
 from TwitterAPI import TwitterAPI
 import yaml
 
@@ -38,7 +38,9 @@ class Collect(Resource):
                 tweets.append({
                     key: item.get(key) for key in keys
                 })
-        return {'tweets': tweets}
+            return {'tweets': tweets}
+        else:
+            return abort(r.status_code)
 
 # Schedule when tweets should be collected and from what location
 class Schedule(Resource):
