@@ -1,6 +1,6 @@
 import unittest
-import json
 from requests import put, get
+from datetime import date
 
 class TestApi(unittest.TestCase):
 
@@ -13,7 +13,8 @@ class TestApi(unittest.TestCase):
         self.assertEqual(data.status_code, 404)
 
     def test_search(self):
-        data = get('http://localhost:5000/search/2015-07-19/37.781157,-122.398720,10mi').json()
+        today = str(date.today())
+        data = get('http://localhost:5000/search/{}/37.781157,-122.398720,10mi'.format(today)).json()
         self.assertGreater(len(data.get('tweets')), 0)
     
     def test_collect(self):
