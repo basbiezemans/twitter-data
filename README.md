@@ -4,15 +4,12 @@ Application that collects and stores tweets from a specific location.
 ## Requirements
 
 * Python >= 3.6
-* Flask
-* Flask-RESTful
-* TwitterAPI
-* PyYaml
+* Packages: Flask, Flask-RESTful, TwitterAPI, PyYaml, Flasgger
 
 ## Installation
 
 1. Clone or download the repository. 
-2. Install the dependencies.
+2. Install the necessary software packages.
 
 ```bash
 $ pip install -r /path/to/requirements.txt
@@ -31,6 +28,10 @@ ACCESS_TOKEN_SECRET: ...
 
 After a successful installation you are ready to run a local version of the application.
 
+## Data folder
+
+Collected tweets are stored in the `data` folder, in the application root.
+
 ## API
 
 You can run the API in the application root with the following command.
@@ -47,10 +48,17 @@ $ curl http://127.0.0.1:5000/search/YYYY-MM-DD/37.781157,-122.398720,10mi
 
 ## Unit tests
 
-Once the API is running you can run the unit tests in the application root. 
+Once the API is running, you can run the unit tests in the application root. 
 
 ```bash
 $ python -m unittest discover tests
 ```
 
- 
+## Documentation
+
+Once the API is running, you can view the API documentation by browsing to the following URL.
+
+```
+http://127.0.0.1:5000/apidocs/
+```
+
