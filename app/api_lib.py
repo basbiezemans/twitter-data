@@ -1,10 +1,27 @@
+from TwitterAPI import TwitterPager
 
-# Filter a Twitter response dictionary by keys
-def filter_response(r):
+# Filters a list of dictionaries by keys
+def filter_items(items):
     keys = ['created_at', 'id', 'text']
-    tweets = []
-    for item in r:
-        tweets.append({
+    result = []
+    for item in items:
+        result.append({
             key: item.get(key) for key in keys
         })
-    return tweets
+    return result
+
+# Collects a number of tweets and stores them in a text file
+def collect_tweets(twitter, queue):
+    geocode, count, file_path = queue.get()
+    iterator = TwitterPager(twitter, 'search/tweets', {'geocode': geocode}).get_iterator()
+    k = 0
+    with open(file_path, 'w', encoding='utf-8') as f:
+        while k < count:
+            k += 1
+            item = next(iterator, {'message': 'sentinel'})
+            if 'text' in item:
+                # Remove extra whitespace and newlines
+                line = ' '.join(item.get('text').split())
+                print(line, file=f)
+            elif 'message' in item:
+                break

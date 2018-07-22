@@ -18,8 +18,8 @@ class TestApi(unittest.TestCase):
         self.assertGreater(len(data.get('tweets')), 0)
     
     def test_collect(self):
-        data = get('http://localhost:5000/collect/37.781157,-122.398720,10mi').json()
-        self.assertGreater(len(data.get('tweets')), 0)
+        data = get('http://localhost:5000/collect/0/37.781157,-122.398720,10mi')
+        self.assertEqual(data.status_code, 202)
     
     def test_schedule(self):
         item = {
