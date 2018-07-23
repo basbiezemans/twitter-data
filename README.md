@@ -28,11 +28,7 @@ ACCESS_TOKEN_SECRET: ...
 
 After a successful installation you are ready to run a local version of the application.
 
-## Data folder
-
-Collected tweets are stored in the `data` folder, in the application root.
-
-## API
+## RESTful API
 
 You can run the API in the application root with the following command.
 
@@ -62,3 +58,12 @@ Once the API is running, you can view the API documentation by browsing to the f
 http://127.0.0.1:5000/apidocs/
 ```
 
+## Collecting Tweets
+
+To collect, for example, 1000 tweets from Dublin Ireland you can use the API request below.
+
+```bash
+$ curl http://127.0.0.1:5000/collect/1000/53.341,-6.248,10mi
+```
+
+Collected tweets are stored in the `data` folder, in the application root.
