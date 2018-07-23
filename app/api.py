@@ -137,4 +137,4 @@ if __name__ == '__main__':
     mp.set_start_method('spawn')
     queue = mp.Queue()
     pool = mp.Pool(3, collect_tweets, (twitter,queue,))
-    app.run(debug=True, use_reloader=False) # TODO: SET [debug=False] BEFORE MOVING TO PRODUCTION
+    app.run(debug=False, use_reloader=False) # SET [debug=True] FOR DEVELOPMENT
