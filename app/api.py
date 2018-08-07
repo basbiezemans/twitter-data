@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, abort
 from api_lib import filter_items, collect_tweets
+from os import path, curdir
 from time import time
 from flasgger import Swagger
 from TwitterAPI import TwitterAPI
@@ -12,9 +13,10 @@ api = Api(app)
 swagger = Swagger(app)
 
 schedule = []
+yamlfile = path.join(path.abspath(curdir), 'conf', 'twitter_credentials.yml')
 
-# Load credentials from YAML file
-with open('../var/twitter_credentials.yaml', 'r') as file:
+# Load credentials
+with open(yamlfile, 'r') as file:
     credentials = yaml.load(file)
 
 consumer_key = credentials.get('CONSUMER_KEY')
