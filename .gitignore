@@ -9,6 +9,9 @@ __pycache__/
 # Config files
 *.yml
 
+# Collected data
+data/
+
 # Distribution / packaging
 .Python
 build/
