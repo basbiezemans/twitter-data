@@ -11,20 +11,34 @@ Application that collects and stores tweets from a specific location.
 1. Clone or download the repository. 
 2. Install the necessary software packages.
 
-	```bash
-	$ pip install -r /path/to/requirements.txt
-	```
+  ```bash
+  $ pip install -r /path/to/requirements.txt
+  ```
 3. Rename the file `twitter_credentials.yml-example` in the `conf` folder to `twitter_credentials.yml`. Afterwards edit the file and add your [Twitter Application](https://apps.twitter.com/) credentials.
 
-After a successful installation you are ready to run a local version of the application.
-
-## RESTful API
-
-You can run the API in the application root folder with the following command.
+After a successful installation you are ready to run a local version of the application. You can run the API in the application root folder with the following command.
 
 ```bash
 $ python app/api.py
 ```
+
+## Docker
+
+Instead of a local installation you can run the application in a Docker container.
+
+Build an image with the name `twitter-data`.
+
+```bash
+$ docker build -t twitter-data .
+```
+
+Create a container from the `twitter-data` image and run it as a daemon on port 5000. Bind a local (data) folder to the container's data folder.
+
+```bash
+$ docker run -d -p 5000:5000 -v ~/twitter/data:/usr/src/app/data twitter-data
+```
+
+## RESTful API
 
 Open up a new prompt to test the API using curl. Replace YYYY-MM-DD with today's date.
 
@@ -57,3 +71,4 @@ $ curl http://127.0.0.1:5000/collect/1000/53.341,-6.248,10mi
 ```
 
 Collected tweets are stored in the `data` folder, in the application root.
+
