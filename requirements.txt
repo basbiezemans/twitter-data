@@ -1,5 +1,5 @@
 flask==1.0.2
 flask-restful==0.3.6
 TwitterAPI==2.5.4
-pyyaml==3.12
+pyyaml
 flasgger==0.9.0
