@@ -24,7 +24,7 @@ consumer_secret = credentials.get('CONSUMER_SECRET')
 access_token_key = credentials.get('ACCESS_TOKEN_KEY')
 access_token_secret = credentials.get('ACCESS_TOKEN_SECRET')
 
-twitter = TwitterAPI(consumer_key, 
+twitter = TwitterAPI(consumer_key,
                      consumer_secret,
                      access_token_key,
                      access_token_secret)
@@ -34,7 +34,7 @@ class Search(Resource):
         """
         Search for tweets from a specific period and location.
         Returns tweets created before the given date. Date should be formatted as YYYY-MM-DD.
-        The search index has a 7-day limit. In other words, no tweets will be found for a date 
+        The search index has a 7-day limit. In other words, no tweets will be found for a date
         older than one week.
         ---
         parameters:
@@ -42,7 +42,7 @@ class Search(Resource):
             name: date
             type: string
             required: true
-            description: A date, formatted as YYYY-MM-DD 
+            description: A date, formatted as YYYY-MM-DD
           - in: path
             name: location
             type: string
@@ -63,7 +63,7 @@ class Collect(Resource):
         """
         Collect tweets from a specific location (longitude and latitude pair).
         Returns tweets by users located within a given radius of the given latitude/longitude.
-        The parameter value is specified by "latitude,longitude,radius", where radius units must 
+        The parameter value is specified by "latitude,longitude,radius", where radius units must
         be specified as either "mi" (miles) or "km" (kilometers).
         ---
         parameters:
@@ -86,12 +86,12 @@ class Collect(Resource):
         except ValueError:
             count = 0
         if count > 0:
-            file_name = '{}-tweets-{}.txt'.format(time(), location.replace(',', '-'))
-            data_path = '../data/'
-            queue.put((location, count, data_path + file_name))
+            filename = '{}-tweets-{}.txt'.format(time(), location.replace(',', '-'))
+            datafile = path.join(path.abspath(curdir), 'data', filename)
+            queue.put((location, count, datafile))
             message = 'The API will try to collect {} tweets in file: {}'.format(
                 count,
-                file_name
+                filename
             )
         else:
             message = 'No tweets were collected.'
@@ -139,4 +139,4 @@ if __name__ == '__main__':
     mp.set_start_method('spawn')
     queue = mp.Queue()
     pool = mp.Pool(3, collect_tweets, (twitter,queue,))
-    app.run(debug=False, use_reloader=False) # SET [debug=True] FOR DEVELOPMENT
+    app.run(debug=False, use_reloader=False, host='0.0.0.0') # SET [debug=True] FOR DEVELOPMENT
