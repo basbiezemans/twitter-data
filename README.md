@@ -11,26 +11,16 @@ Application that collects and stores tweets from a specific location.
 1. Clone or download the repository. 
 2. Install the necessary software packages.
 
-```bash
-$ pip install -r /path/to/requirements.txt
-```
-3. Create a `var` folder in the application root.
-   In that folder create a file called `twitter_credentials.yaml` 
-4. Edit the file and add your [Twitter Application](https://apps.twitter.com/) credentials.
-
-```yaml
-# twitter_credentials.yaml
-CONSUMER_KEY: ...
-CONSUMER_SECRET: ...
-ACCESS_TOKEN_KEY: ...
-ACCESS_TOKEN_SECRET: ...
-```
+	```bash
+	$ pip install -r /path/to/requirements.txt
+	```
+3. Rename the file `twitter_credentials.yml-example` in the `conf` folder to `twitter_credentials.yml`. Afterwards edit the file and add your [Twitter Application](https://apps.twitter.com/) credentials.
 
 After a successful installation you are ready to run a local version of the application.
 
 ## RESTful API
 
-You can run the API in the application root with the following command.
+You can run the API in the application root folder with the following command.
 
 ```bash
 $ python app/api.py
