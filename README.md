@@ -24,7 +24,7 @@ $ python app/api.py
 
 ## Docker
 
-Instead of a local installation you can run the application in a Docker container.
+Instead of a local installation you can run the application in a Docker container. First clone or download the repository, and edit the `twitter_credentials.yml` file.
 
 Build an image with the name `twitter-data`.
 
