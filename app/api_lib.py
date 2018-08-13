@@ -1,7 +1,8 @@
 from TwitterAPI import TwitterPager
 
-# Filters a list of dictionaries by keys
 def filter_items(items):
+    """ Filters a list of dictionaries by keys
+    """
     keys = ['created_at', 'id', 'text']
     result = []
     for item in items:
@@ -10,8 +11,9 @@ def filter_items(items):
         })
     return result
 
-# Collects a number of tweets and stores them in a text file
 def collect_tweets(twitter, queue):
+    """ Collects a number of tweets and stores them in a text file
+    """
     geocode, count, file_path = queue.get()
     iterator = TwitterPager(twitter, 'search/tweets', {'geocode': geocode}).get_iterator()
     k = 0
