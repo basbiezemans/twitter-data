@@ -11,13 +11,13 @@ def filter_items(items):
         })
     return result
 
-def collect_tweets(twitter, queue):
+def collect_tweets(twitter, request):
     """ Collects a number of tweets and stores them in a text file
     """
-    geocode, count, file_path = queue.get()
+    geocode, count, filepath = request
     iterator = TwitterPager(twitter, 'search/tweets', {'geocode': geocode}).get_iterator()
     k = 0
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(filepath, 'w', encoding='utf-8') as f:
         while k < count:
             k += 1
             item = next(iterator, {'message': 'sentinel'})

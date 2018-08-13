@@ -6,7 +6,7 @@ from time import time
 from flasgger import Swagger
 from TwitterAPI import TwitterAPI
 import yaml
-import multiprocessing as mp
+import threading
 
 app = Flask(__name__)
 api = Api(app)
@@ -88,7 +88,11 @@ class Collect(Resource):
         if count > 0:
             filename = '{}-tweets-{}.txt'.format(time(), location.replace(',', '-'))
             datafile = path.join(path.abspath(curdir), 'data', filename)
-            queue.put((location, count, datafile))
+            request = (location, count, datafile)
+            # Start a separate thread that will handle the collection of tweets
+            thread = threading.Thread(target=collect_tweets, args=(twitter, request, ))
+            thread.daemon = True
+            thread.start()
             message = 'The API will try to collect {} tweets in file: {}'.format(
                 count,
                 filename
@@ -135,8 +139,4 @@ api.add_resource(Collect, '/collect/<count>/<location>')
 api.add_resource(Schedule, '/schedule/')
 
 if __name__ == '__main__':
-    # Start a separate Python process that will handle the collection of tweets
-    mp.set_start_method('spawn')
-    queue = mp.Queue()
-    pool = mp.Pool(3, collect_tweets, (twitter,queue,))
     app.run(debug=False, use_reloader=False, host='0.0.0.0') # SET [debug=True] FOR DEVELOPMENT
